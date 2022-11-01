@@ -1,5 +1,5 @@
 class SongController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token, raise: false
   
   # GET 'api/songs/:id'
   def get
