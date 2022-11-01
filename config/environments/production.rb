@@ -120,5 +120,5 @@ Rails.application.configure do
 end
 
 Rails.application.routes.default_url_options = {
-  host: 'https://api.supertonic.vercel.app'
+  host: 'https://supertonic-backend.herokuapp.com'
 }
