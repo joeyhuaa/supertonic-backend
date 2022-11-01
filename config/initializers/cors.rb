@@ -1,6 +1,6 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do 
   allow do
-    origins 'http://localhost:3000', 'http://localhost:3001', 'https://supertonic.vercel.app'
+    origins 'http://localhost:3000', 'http://localhost:3001', 'https://supertonic.vercel.app', 'https://supertonic-frontend.herokuapp.com'
   
     resource '*',
       headers: :any,
