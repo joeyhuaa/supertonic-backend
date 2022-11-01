@@ -1,7 +1,7 @@
 # MIGRATION DB SHENANIGANS
 # https://guides.rubyonrails.org/association_basics.html
 
-require 'byebug'
+# require 'byebug'
 
 class ProjectController < ApplicationController
   include ApplicationHelper
