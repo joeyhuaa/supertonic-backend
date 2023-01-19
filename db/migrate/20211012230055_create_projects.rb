@@ -5,6 +5,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.text :description
       t.string :branches
       t.string :songs
+      t.string :shared_users
 
       t.timestamps
       t.belongs_to :user

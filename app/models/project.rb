@@ -1,35 +1,33 @@
-# require 'byebug'
+require 'byebug'
 
 class Project < ApplicationRecord
   belongs_to :user
   has_many :songs, dependent: :delete_all
   has_many :branches, dependent: :delete_all
-
-  #todo ?
-  #has_many :users
-  #has_one :owner
+  has_many :shared_users, dependent: :delete_all
+  # has_one :owner
 
   serialize :name, JSON
   serialize :description, JSON
-  serialize :shared_users
+  serialize :owner, JSON
 
   def song_ids
     self.songs.map{|song| song.id}
   end
 
-  def addBranch(newBranchName, sourceBranchName = nil)
+  def add_branch(new_branch_name, source_branch_name = nil)
     @branch = self.branches.create(created_at: Time.now)
-    @branch.name = newBranchName
+    @branch.name = new_branch_name
 
-    if sourceBranchName
-      @branch.songs = self.branches.find_by(name: sourceBranchName).songs
+    if source_branch_name
+      @branch.songs = self.branches.find_by(name: source_branch_name).songs
     end
     
     @branch.save!
     self.save!
   end
 
-  def addSongs(files, branchName)
+  def add_songs(files, branchName)
     files.each do |file|
       # create song and attach file to model
       @song = self.songs.create(created_at: Time.now)
@@ -48,8 +46,15 @@ class Project < ApplicationRecord
 
       # add song to branch
       @branch = self.branches.find_by(name: branchName)
-      @branch.addSong(@song)
+      @branch.add_song(@song)
     end
+    self.save!
+  end
+
+  def add_shared_user(username)
+    @shared_user = self.shared_users.create(created_at: Time.now)
+    @shared_user.username = username
+    @shared_user.save!
     self.save!
   end
 end

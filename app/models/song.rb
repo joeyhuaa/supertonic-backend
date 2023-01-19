@@ -1,6 +1,6 @@
 class Song < ApplicationRecord
   belongs_to :project
-  has_and_belongs_to_many :branch
+  has_and_belongs_to_many :branches
   has_one_attached :file
 
   def file_url

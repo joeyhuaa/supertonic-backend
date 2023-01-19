@@ -8,7 +8,7 @@ class ProjectController < ApplicationController
   # skip_forgery_protection
   # skip_before_action :verify_authenticity_token, raise: false
 
-  # ! not working...
+  #! not working...
   # skip_before_action :authenticate_user!, only: [:get]
 
   # POST api/projects/new
@@ -19,18 +19,19 @@ class ProjectController < ApplicationController
     #* name
     @project.name = "Untitled Project"
 
+    #* owner
+    @project.owner = @user.as_json
+
     #* description
     @project.description = ""
 
     #* branch
-    @project.addBranch('main')
+    @project.add_branch('main')
 
-    #todo - make this an array, like project.songs
-    #todo - make has_many property? but then we'd have to make a new table... either shared_users or owner/editors
-    @project.shared_users.push("{#{@user}}") #! not working.....
+    #* shared user
+    @project.add_shared_user('maia') #!
 
     @project.save!
-
     render :json => @project
   end
 
@@ -49,7 +50,7 @@ class ProjectController < ApplicationController
   # PUT api/projects/:id/add_songs
   def add_songs
     @project = Project.find(params[:projectId])
-    @project.addSongs(params[:files], params[:branchName])
+    @project.add_songs(params[:files], params[:branchName])
     if @project.save
       data = @project.songs.map{ |song| { name: song.name, url: song.file_url } }
       render :json => data, status: :created
@@ -61,7 +62,7 @@ class ProjectController < ApplicationController
   # PUT api/projects/:id/newbranch
   def new_branch
     @project = Project.find( params[:projId] )
-    @project.addBranch( params[:newBranchName], params[:sourceBranchName] )
+    @project.add_branch( params[:new_branch_name], params[:source_branch_name] )
     render :json => @project
   end
 
@@ -79,7 +80,7 @@ class ProjectController < ApplicationController
     #* destroy song if it's only in 1 branch
     if @song.branch_ids.size > 1
       # remove song from branch
-      @branch.deleteSong(@song)
+      @branch.delete_song(@song)
       render :json => {
         songRemoved: @song,
         status: `removed from branch "#{@branch.name}"`
@@ -102,10 +103,10 @@ class ProjectController < ApplicationController
     @oldSong = Song.find(params[:songId])
 
     #remove old song from branch
-    @branch.deleteSong(@oldSong)
+    @branch.delete_song(@oldSong)
 
     #add new song to project and branch
-    @project.addSongs(params[:files], params[:branchName])
+    @project.add_songs(params[:files], params[:branchName])
 
     data = @project.songs.map{ |song| { name: song.name, url: song.file_url } }
     render :json => data
@@ -133,15 +134,15 @@ class ProjectController < ApplicationController
 
   #todo
   # PUT api/projects/:id/add_user
-  def add_user
-    @project = Project.find(params[:id])
+  # def add_user
+  #   @project = Project.find(params[:id])
 
-    #add new user to project
-    if params[:userId]
-      @user = User.find(params[:userId])
-      @project.shared_users.push(@user)
-    end
-  end
+  #   #add new user to project
+  #   if params[:userId]
+  #     @user = User.find(params[:userId])
+  #     @project.shared_users.push(@user)
+  #   end
+  # end
 
   private
 
