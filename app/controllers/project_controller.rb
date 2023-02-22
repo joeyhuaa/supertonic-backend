@@ -28,9 +28,6 @@ class ProjectController < ApplicationController
     #* branch
     @project.add_branch('main')
 
-    #* shared user
-    @project.add_shared_user('maia') #!
-
     @project.save!
     render :json => @project
   end
@@ -133,16 +130,19 @@ class ProjectController < ApplicationController
   end
 
   #todo
-  # PUT api/projects/:id/add_user
-  # def add_user
-  #   @project = Project.find(params[:id])
+  # PUT api/projects/:id/invite_user
+  def invite_user
+    @project = Project.find(params[:projId])
+    
+    #todo - send an email to the new user, inviting them to join
+    UserMailer.with(newUserEmail: params[:newUserEmail]).share_project_email.deliver_now #! not sending in dev env
 
-  #   #add new user to project
-  #   if params[:userId]
-  #     @user = User.find(params[:userId])
-  #     @project.shared_users.push(@user)
-  #   end
-  # end
+    #add new user to project
+    # if params[:userId]
+    #   @user = User.find(params[:userId])
+    #   @project.add_shared_user(@user) #!
+    # end
+  end
 
   private
 

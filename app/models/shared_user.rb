@@ -1,4 +1,4 @@
-require 'byebug'
+# require 'byebug'
 
 class SharedUser < ApplicationRecord
 # class SharedUser < User

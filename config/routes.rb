@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   put 'api/projects/:id/delete_branch', to: 'project#delete_branch'
   put 'api/projects/:id/delete_song', to: 'project#delete_song'
   put 'api/projects/:id/replace_song', to: 'project#replace_song'
+  put 'api/projects/:id/invite_user', to: 'project#invite_user'
 
   get 'api/shared/projects/:id', to: 'pages#shared_project'
 end
