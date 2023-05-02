@@ -15,7 +15,7 @@ class Project < ApplicationRecord
     self.songs.map{|song| song.id}
   end
 
-  def add_branch(newBranchName, sourceBranchName)
+  def add_branch(newBranchName, sourceBranchName=nil)
     @branch = self.branches.create(created_at: Time.now)
     @branch.name = newBranchName
 

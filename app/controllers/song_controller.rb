@@ -5,7 +5,6 @@ class SongController < ApplicationController
   def get
     @song = Song.find(params['id'])
     render :json => {:song => @song}
-    # todo - render :json => @song
   end
 
   def post
