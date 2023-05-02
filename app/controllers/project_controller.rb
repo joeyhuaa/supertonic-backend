@@ -1,7 +1,7 @@
 # MIGRATION DB SHENANIGANS
 # https://guides.rubyonrails.org/association_basics.html
 
-require 'byebug'
+# require 'byebug'
 
 class ProjectController < ApplicationController
   include ApplicationHelper
@@ -59,7 +59,6 @@ class ProjectController < ApplicationController
   # PUT api/projects/:id/newbranch
   def new_branch
     @project = Project.find( params[:projId] )
-    byebug
     @project.add_branch( params[:newBranchName], params[:sourceBranchName] )
     render :json => @project
   end

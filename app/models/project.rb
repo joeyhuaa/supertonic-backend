@@ -1,4 +1,4 @@
-require 'byebug'
+# require 'byebug'
 
 class Project < ApplicationRecord
   belongs_to :user
@@ -18,7 +18,6 @@ class Project < ApplicationRecord
   def add_branch(newBranchName, sourceBranchName)
     @branch = self.branches.create(created_at: Time.now)
     @branch.name = newBranchName
-    byebug
 
     if sourceBranchName
       @branch.songs = self.branches.find_by(name: sourceBranchName).songs
