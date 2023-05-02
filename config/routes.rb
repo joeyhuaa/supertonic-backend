@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   # put 'api/audios/new', to: 'audios#new'
   put 'api/projects/:id/change_name', to: 'project#change_name'
   delete 'api/projects/:id/destroy', to: 'project#destroy'
-  put 'api/projects/:id/newbranch', to: 'project#new_branch'
+  put 'api/projects/:id/new_branch', to: 'project#new_branch'
   put 'api/projects/:id/delete_branch', to: 'project#delete_branch'
   put 'api/projects/:id/delete_song', to: 'project#delete_song'
   put 'api/projects/:id/replace_song', to: 'project#replace_song'

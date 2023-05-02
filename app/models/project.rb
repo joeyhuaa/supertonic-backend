@@ -27,6 +27,12 @@ class Project < ApplicationRecord
     self.save!
   end
 
+  def delete_branch(branchName) 
+    @branch = self.branches.find_by(name: branchName)
+    @branch.destroy
+    self.save!
+  end
+
   def add_songs(files, branchName)
     files.each do |file|
       # create song and attach file to model

@@ -56,15 +56,18 @@ class ProjectController < ApplicationController
     end
   end
 
-  # PUT api/projects/:id/newbranch
+  # PUT api/projects/:id/new_branch
   def new_branch
-    @project = Project.find( params[:projId] )
+    @project = Project.find(params[:projId])
     @project.add_branch( params[:newBranchName], params[:sourceBranchName] )
     render :json => @project
   end
 
   # PUT api/projects/:id/delete_branch
   def delete_branch
+    @project = Project.find(params[:projId])
+    @project.delete_branch(params[:branchName])
+    render :json => @project
   end
 
   # DELETE api/projects/:id/delete_song
